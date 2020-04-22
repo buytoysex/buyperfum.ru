@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PropertyRequest;
 use App\Models\Property;
-use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
@@ -50,7 +49,7 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        //
+        return view('auth.properties.show', compact('property'));
     }
 
     /**
@@ -73,7 +72,8 @@ class PropertyController extends Controller
      */
     public function update(PropertyRequest $request, Property $property)
     {
-        //
+        $property->update($request->all());
+        return redirect()->route('properties.index');
     }
 
     /**
@@ -84,6 +84,7 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
-        //
+        $property->delete();
+        return redirect()->route('properties.index');
     }
 }
