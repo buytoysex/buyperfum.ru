@@ -1,16 +1,16 @@
 @extends('layouts.master')
 
-@isset($metatag->title)
-    @section('title', $metatag->title)
-@else
-    @section('title', $product->name)
-@endisset
+{{--@isset($metatag->title)--}}
+{{--    @section('title', $metatag->title)--}}
+{{--@else--}}
+{{--    @section('title', $product->name)--}}
+{{--@endisset--}}
 
-@isset($metatag->description)
-    @section('description', $metatag->description)
-@else
-    @section('description', '')
-@endisset
+{{--@isset($metatag->description)--}}
+{{--    @section('description', $metatag->description)--}}
+{{--@else--}}
+{{--    @section('description', '')--}}
+{{--@endisset--}}
 
 @section('content')
     <div class="contayner_breadcrumb conteyner">

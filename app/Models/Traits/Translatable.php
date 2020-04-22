@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Trails;
+namespace App\Models\Traits;
 
 use Illuminate\Support\Facades\App;
 

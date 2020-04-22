@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>BuyToySex.ru</title>
+    <title>Первый интерент магазин на Laravel</title>
     <link rel="stylesheet" type="text/css" href="slick/slick.css">
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -29,9 +29,9 @@
         <div class="authorization el_end">
             <ul>
 
-                <li class="li_valuta">{{App\Services\CurrencyConversion::getCurrencySymbol()}}
+                <li class="li_valuta">{{$currencySymbol}}
                     <ul class="ul_valuta">
-                        @foreach(App\Services\CurrencyConversion::getCurrencies() as $currency)
+                        @foreach($currencies as $currency)
                             <li>
                                 <a href="{{ route('currency', $currency->code) }}">{{ $currency->symbol }}</a>
                             </li>
@@ -102,74 +102,43 @@
 @yield('content')
 
 <footer>
-    <div class="copyright conteyner">
-        &#169; 2020
-        <p>
-            <a href="{{ route('clear') }}">Очистить кэш</a>
-        </p>
-    </div>
-    <div>
-
-    </div>
+    <section class="footer conteyner grid">
+        <div class="menu_vertical">
+            <h3>@lang('main.categories')</h3>
+            <ul>
+                @foreach($menu_categories as $category)
+                    <li @if(request()->path() == 'category/'. $category->code) class="active" @endif>
+                        <div class="circle_a grid">
+                            <i class="fa fa-circle" aria-hidden="true"></i>
+                            <a href="{{ route('subcategory',  $category->code) }}">
+                                {{ $delimeter ?? '' }}{{  $category->__('name') }} {{--{{  $parentcategoryItem->children->count() }}--}}
+                            </a>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="popular_product">
+            <h3>Самые популярные товары</h3>
+            <ul>
+                @foreach($bestProducts as $product)
+                    <li>
+                        <a href="{{ route('product', [isset($subcategory) ? $subcategory->code : $product->category->code, $product->code]) }}">{{ $product->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="copyright">
+            &#169; 2020
+            <p>
+                <a href="{{ route('clear') }}">Очистить кэш</a>
+            </p>
+        </div>
+    </section>
 </footer>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/slick/slick.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript">
-    function sliderProduct(selector) {
-        $(selector).slick({
-            dots: true,
-            arrows: true,
-            appendArrows: '.slider-arrows',
-            prevArrow: '<span class="slider-arrow"><i class="fa fa-angle-left" aria-hidden="true"></i></span>',
-            nextArrow: '<span class="slider-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>',
-            infinite: false,
-            speed: 300,
-            slidesToShow: 5,
-            slidesToScroll: 5,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4,
-                        infinite: true,
-                        dots: true
-                    }
-                },
-                {
-                    breakpoint: 962,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true
-                    }
-                },
-                {
-                    breakpoint: 712,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                },
-                {
-                    breakpoint: 486,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-                // You can unslick at a given breakpoint now by adding:
-                // settings: "unslick"
-                // instead of a settings object
-            ]
-        });
-    }
-
-    $(document).on('ready', function () {
-        sliderProduct('.slider_product');
-    });
-</script>
+<script src="/js/script.js"></script>
 </body>
 </html>

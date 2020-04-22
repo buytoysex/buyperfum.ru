@@ -109,7 +109,20 @@ ul {
     margin-right: auto;
     max-width: 1170px;
 }
-
+.sidebar_left{
+    width: 285px;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.sidebar_left img{
+    position: relative;
+    height: 100%;
+    width: auto;
+    left: -248px;
+}
 header {
     background: #fff;
 }
@@ -561,11 +574,24 @@ li {
     justify-items: center;
 }
 
-footer {
+footer{
+    margin-top: 20px;
     background: #272626;
     color: #fff;
 }
-
+.footer {
+    grid-template-columns: 1fr 1fr 1fr;
+    /*justify-items: center;*/
+}
+.footer .menu_vertical{
+    background: #272626;
+}
+.footer .menu_vertical ul li a{
+    color: #fff;
+}
+.copyright{
+    justify-self: end;
+}
 @media (max-width: 1101px) {
     .menu_header ul {
         grid-template-columns: repeat(7, auto);

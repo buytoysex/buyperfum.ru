@@ -37,11 +37,7 @@ class MainController extends Controller
 
         $hitProducts = Product::where('hit', 1)->get();
 
-        $categories = Category::where('parent_id', 0)->get();
-
-        $menu_categories = $categories;
-
-        return view('index', compact('products', 'hitProducts', 'categories', 'menu_categories'));
+        return view('index', compact('products', 'hitProducts'));
     }
 
     public function categories()
@@ -72,7 +68,6 @@ class MainController extends Controller
         $category = Category::where('code', $code)->first();
         // для вывода текущей категории
         $breadcrumbCategoryEnd = $category;
-        $menu_categories = Category::where('parent_id', 0)->get();
         $parentcategory = Category::with('parentCategory')->where('id', $category->parent_id)->first();
         //проверяю есть ли у текущей страницы категорий родительская категория, если есть то заменяю на родительскую категорию
         if (!empty($parentcategory)) {
@@ -83,7 +78,6 @@ class MainController extends Controller
             'parentcategory' => $parentcategory,
             'category' => $category, //категория, либо родительская категория
 //            'subcategory' => $category,
-            'menu_categories' => $menu_categories,
             'breadcrumbCategoryEnd' => $breadcrumbCategoryEnd, // текущая категория
             'delimeter' => ''
         ]);
@@ -99,7 +93,7 @@ class MainController extends Controller
     {
         $product = Product::withTrashed()->byCode($productCode)->firstOrFail();
 //        $parentcategory = Category::where('id', $product->category->parent_id)->first();
-        $metatag = Metatag::where('product_id', $product->id)->first();
+//        $metatag = Metatag::where('product_id', $product->id)->first();
 
 //        dd($product->category->code);
         $delimeter = '';
@@ -111,8 +105,7 @@ class MainController extends Controller
         if (!empty($parentcategory)) {
             $category = $parentcategory;
         }
-        $menu_categories = Category::where('parent_id', 0)->get();
-        return view('product', compact('product', 'metatag', 'parentcategory', 'category', 'breadcrumbCategoryEnd', 'menu_categories'));
+        return view('product', compact('product', 'parentcategory', 'category', 'breadcrumbCategoryEnd'));
     }
 
     public function clear()
@@ -121,7 +114,7 @@ class MainController extends Controller
         Artisan::call('config:cache');
         Artisan::call('view:clear');
         Artisan::call('route:clear');
-        return view('clear');
+        return redirect()->back()->with('success', 'Кеш очищен');
     }
 
     public function subscribe(SubscriptionRequest $request, Product $product)

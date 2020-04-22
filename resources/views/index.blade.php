@@ -9,8 +9,8 @@
                 src="{{ Storage::url('wom_prem_838.jpg') }}"
                 alt="">
         </div>
-        <div class="sidebar_left border">
-
+        <div class="sidebar_left">
+            <img src="https://avatars.mds.yandex.net/get-pdb/770122/d24c3f5d-c9f4-4541-9c4a-5944ea2b192b/s1200?webp=false" alt="">
         </div>
     </section>
     <section class="conteyner sales_hits">
@@ -46,7 +46,7 @@
                         </h3>
                     </div>
                     <div class="add_product grid">
-                        <div class="price">{{ $hitProduct->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
+                        <div class="price">{{ $hitProduct->price }} {{ $currencySymbol }}</div>
                         <form action="{{ route('basket-add', $hitProduct) }}" method="POST">
                             @if($hitProduct->isAvailable())
                                 <button type="submit" class="add" role="button">@lang('main.in_basket')</button>
@@ -68,7 +68,7 @@
         <div class="menu_vertical">
             <h3>@lang('main.categories')</h3>
             <ul>
-                @foreach($categories as $category)
+                @foreach($menu_categories as $category)
                     <li @if(request()->path() == 'category/'. $category->code) class="active" @endif>
                         <div class="circle_a grid">
                             <i class="fa fa-circle" aria-hidden="true"></i>
@@ -82,7 +82,7 @@
         </div>
         <div class="card grid">
             <h3 class="card_name">Категории</h3>
-            @foreach($categories as $category)
+            @foreach($menu_categories as $category)
                 <div class="category grid">
                     <div class="img_category_card">
                         <img

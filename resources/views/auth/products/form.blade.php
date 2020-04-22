@@ -58,7 +58,7 @@
                         {{--                        {{  dd($delimeter) }}--}}
                         @include('auth.layouts.error', ['fieldName' => 'category_id'])
                         <select name="category_id" id="category_id" class="form-control">
-                            <option value="{{$product->category_id}}">— — без родительской категории — —</option>
+                            <option value="@isset($product){{$product->category_id}}@endisset">— — без родительской категории — —</option>
                             @include('auth.products.optioncategories')
                         </select>
                     </div>

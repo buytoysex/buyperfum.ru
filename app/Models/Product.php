@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Translatable;
 use App\Services\CurrencyConversion;
-use App\Models\Trails\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,6 +19,17 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function skus()
+    {
+        return $this->hasMany(Sku::class);
+    }
+
+    //TODO: check table name and fields
+    public function properties()
+    {
+        return $this->belongsToMany(Property::class);
     }
 
     public function getPriceForCount()

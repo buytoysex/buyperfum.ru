@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableOrdersAddCurrencyIdAndSum extends Migration
+class CreateSkuPropertyOptionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AlterTableOrdersAddCurrencyIdAndSum extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->integer('currency_id');
-            $table->double('sum');
+        Schema::create('sku_property_option', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedInteger('property_option_id');
+            $table->unsignedInteger('sku_id');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +28,6 @@ class AlterTableOrdersAddCurrencyIdAndSum extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn(['currency_id', 'sum']);
-        });
+        Schema::dropIfExists('sku_product');
     }
 }

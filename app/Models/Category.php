@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Trails\Translatable;
+use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model

@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sku extends Model
 {
-    protected $filable = ['product_id', 'count', 'price'];
+    protected $fillable = ['rpdocut_id', 'count', 'price'];
 
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
-    //TODO: check name and fields
+    //TODO: check table name and fields
     public function skus()
     {
         return $this->belongsToMany(PropertyOption::class);
